@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="./favicon.png">
+</head>
+<body class="background">
+    <h1 class="title">Chess</h1>
+    
+    <div class="modal-container">
+        <div class="modal">
+            <h2>Info</h2>
+            <hr /><span class="message"></span>
+            <hr />
+            <div class="modal-btns">
+            <button class="btn-rook" onclick="pawnToRook()">Rook</button>
+            <button class="btn-knight" onclick="pawnToRook()">knight</button>
+            <button class="btn-bishop" onclick="pawnToRook()">Bishop</button>
+            <button class="btn-queen" onclick="pawnToRook()">queen</button>
+            <button class="btn-close" onclick="pawnToRook()">Close</button>
+            <button class="btn-refresh" onclick="pawnToRook()">Refresh</button>
+
+        </div>
+    </div>
+</div>
+
+<div class="window-btn">
+    <button class="btn-refresh" id="1" onclick="refresh()"> Refresh</button>
+    <button class="btn-undo" id="2" onclick="undo()">undo</button>
+</div>
+
+<table id="chessBoard"></table>
+<script type="text/javascript" src="./script.js"></script>
+
+</body>
+</html>
+

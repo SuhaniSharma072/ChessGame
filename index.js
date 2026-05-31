@@ -48,4 +48,75 @@ for (let i = 0; i < 8; i++) {
     }
 }
 
+updateBoard(board,true);
 
+function updateBoard(board,save){
+    let currentBoard=[];
+    for(let i=0;i<8;i++){
+        currentBoard[i]=[];
+    }
+    for(let j=0;j<8;j++){
+        currentBoard[i][j]=board[i][j];
+    }
+}
+
+if (save) history.push(currentBoard);
+
+while(chessBoard.hasChildNodes()){
+    chessBoard.removeChild(chessBoard.firstChild);
+}
+
+for(let i=0;i<8;i++){
+    const row=chessBoard.insertRow();
+    for(let j=0;j<8;j++){
+        const cell=row.insertCell();
+        cell.className=(i+j)%2===0? "White" :"Black";
+        cell.addEventListener("click",handleClick);
+        cell.textContent=history[history.length-1][i][j].unicode;
+    }
+}
+
+function handleClick(event){
+    const row=event.target.parentNode.rowIndex;
+    const col=event.target.cellIndex;
+    for (let i=0;i<document.getElementsByTagName("td").length;i++){
+        document.getElementsByTagName("td")[i].classList.remove("piece-selected");
+
+    }
+    if(board[row][col].color===currentPlayer){
+        selectedPiece={row,col};
+        event.target.classList.add("piece-selected");
+    } else{
+        if(!selectedPiece) return;
+        const targetPiece= {row,col};
+        movePiece(selectedPiece,targetPiece);
+        selectedPiece=null;
+    }
+}
+
+function movePiece(selectedPiece,targetPiece){
+    const[fromRow,fromCol]=[selectedPiece.row,selectedPiece.col];
+    const[toRow,toCol]=[targetPiece.row,selectedPiece.col];
+    let move=false;
+    if (board[fromRow][fromCol].type==="pawn")move=pawnMove(board,fromRow,fromCol,toRow,toCol,currentPlayer,true,true);
+    else if (board[fromRow][fromCol].type==="knight")move=knightMove(board,fromRow,fromCol,toRow,toCol,true);
+    else if (board[fromRow][fromCol].type==="bishop")move=bishopMove(board,fromRow,fromCol,toRow,toCol,true);
+    else if (board[fromRow][fromCol].type==="rook")move=rookMove(board,fromRow,fromCol,toRow,toCol,true,true);
+    else if (board[fromRow][fromCol].type==="queen")move=queenMove(board,fromRow,fromCol,toRow,toCol,true);
+    else if (board[fromRow][fromCol].type==="king")move=kingMove(board,fromRow,fromCol,toRow,toCol,true,true);
+
+    if(move){
+        board[toRow][toCol]=board[fromRow][fromCol];
+        board[fromRow][fromCol]=new Piece("","","");
+        pawnToPiece();
+        currentPlayer=currentPlayer==="White"?"Black":"White";
+        turnIndicator.textContent='Current turn: ${currentPlayer}';
+        if(!((toRow==0|| toRow ===7) && board[toRow][toCol].type==="pawn")){updateBoard(board,true);}
+        isTheEnd();
+    }
+}
+
+function pawnMove(thisBoard,fRow,fCol,tRow,tCol,player,enPassant,testCheck){
+    const direction =player==="White"? -1:1;
+    if((fRow+direction*2===tRow))
+}

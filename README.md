@@ -1,1 +1,2 @@
-This is a chess game built using HTML, CSS, and JS.
+This is a 2 player chess game built using HTML, CSS, and JS. Both players take turns on the same device and features include pawn promotion, move highlighting, and an undo button to step back moves. 
+A struggle I faced was figuring out how to code it so that it went turn by turn each side for each player. This was fixed by using a currentPlayer variable that switches between "White" and "Black" after every  move and it checks it on every click to ensure each player can only move their own chess pieces.

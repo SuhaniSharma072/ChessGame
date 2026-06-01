@@ -36,6 +36,7 @@ for (let i = 0; i < 8; i++) {
         else board[i][j] = empty();
     }
 }
+
 const blackBack = [
     ["rook", "\u265C"], ["knight", "\u265E"], ["bishop", "\u265D"],
     ["queen", "\u265B"], ["king", "\u265A"], ["bishop", "\u265D"],
@@ -114,8 +115,6 @@ function movePiece(from, to) {
     switch (p.type) {
         case "pawn":   valid = pawnMove(from, to, board, currentPlayer); break;
         case "knight": valid = knightMove(from, to); break;
-
-
         case "bishop": valid = bishopMove(from, to, board); break;
         case "rook":   valid = rookMove(from, to, board); break;
         case "queen":  valid = queenMove(from, to, board); break;
@@ -128,14 +127,13 @@ function movePiece(from, to) {
     testBoard[to.r][to.c] = testBoard[from.r][from.c];
     testBoard[from.r][from.c] = empty();
 
-
-
-
     if (isCheckOnBoard(testBoard, currentPlayer)) return; 
     saveHistory();
+
     board[to.r][to.c] = p;
     board[from.r][from.c] = empty();
 
+  
     if (p.type === "king") {
         if (currentPlayer === "White") { wBigCastle = false; wSmallCastle = false; }
         else { bBigCastle = false; bSmallCastle = false; }
@@ -151,7 +149,8 @@ function movePiece(from, to) {
         pendingPromotion = { r: to.r, c: to.c };
         showModal("Promote your pawn:");
         updateBoard();
-        return; }
+        return; 
+    }
 
     currentPlayer = currentPlayer === "White" ? "Black" : "White";
     turnIndicator.textContent = `Current turn: ${currentPlayer}`;
@@ -159,6 +158,8 @@ function movePiece(from, to) {
     updateBoard();
     checkGameEnd();
 }
+
+
 function pawnMove(f, t, b, player) {
     const dir = player === "White" ? -1 : 1;
     const target = b[t.r][t.c];
@@ -180,6 +181,7 @@ function knightMove(f, t) {
            (Math.abs(f.r - t.r) === 1 && Math.abs(f.c - t.c) === 2);
 }
 
+// BISHOP
 function bishopMove(f, t, b) {
     if (Math.abs(f.r - t.r) !== Math.abs(f.c - t.c)) return false;
 
@@ -193,6 +195,7 @@ function bishopMove(f, t, b) {
     }
     return true;
 }
+
 
 function rookMove(f, t, b) {
     if (f.r !== t.r && f.c !== t.c) return false;
@@ -211,13 +214,17 @@ function rookMove(f, t, b) {
     return true;
 }
 
+
 function queenMove(f, t, b) {
     return rookMove(f, t, b) || bishopMove(f, t, b);
 }
 
+
 function kingMove(f, t) {
     return Math.abs(f.r - t.r) <= 1 && Math.abs(f.c - t.c) <= 1;
 }
+
+
 function showModal(msg) {
     modalMessage.textContent = msg;
     modal.classList.add('active');
@@ -232,6 +239,7 @@ function closeModal() {
 function closeBtn() {
     closeModal();
 }
+
 
 function promoteWith(type, unicode) {
     if (!pendingPromotion) return;
@@ -252,6 +260,7 @@ function pawnToRook()   { promoteWith("rook",   currentPlayer === "White" ? "\u2
 function pawnToBishop() { promoteWith("bishop", currentPlayer === "White" ? "\u2657" : "\u265D"); }
 function pawnToKnight() { promoteWith("knight", currentPlayer === "White" ? "\u2658" : "\u265E"); }
 
+
 function isCheckOnBoard(testBoard, kingColor) {
     let kr, kc;
 
@@ -262,6 +271,7 @@ function isCheckOnBoard(testBoard, kingColor) {
             }
 
     if (kr === undefined) return false; 
+
     const enemy = kingColor === "White" ? "Black" : "White";
 
     for (let i = 0; i < 8; i++) {
@@ -350,6 +360,7 @@ function undo() {
     turnIndicator.textContent = `Current turn: ${currentPlayer}`;
     updateBoard();
 }
+
 
 function refresh() {
     location.reload();

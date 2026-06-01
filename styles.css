@@ -1,54 +1,52 @@
-body{
-    font-family: 'Courier New', Courier, monospace;
+body {
+    font-family: Courier New, monospace;
     pointer-events: auto;
 }
 
-body.modal-open{
+
+body.modal-open {
     pointer-events: none;
 }
 
-
-
-
-
-h1{
+h1 {
     text-align: center;
-    color:white;
+    color: white;
     line-height: 0.9;
     font-size: 42;
 }
 
-h4{
+h4 {
     text-align: center;
-    color:white;
-    font-size:18;
-    line-height:0.0;
+    color: white;
+    font-size: 18;
+    line-height: 0.0;
 }
 
-table{
+table {
     border-collapse: collapse;
-    margin-left:auto;
-    margin-right:auto;
+    margin-left: auto;
+    margin-right: auto;
     border: 2px solid black;
 }
 
-td{
+td {
     width: 70px;
-    height:70px;
+    height: 70px;
     text-align: center;
     vertical-align: middle;
     font-size: 48;
-    border:1px solid black;
-    cursor:pointer;
-    user-select:none;
+    border: 1px solid black;
+    cursor: pointer;
+    user-select: none;
 }
 
-hr{
-    border:0px;
-    border-top:1px solid lightgrey;
+hr {
+    border: 0px;
+    border-top: 1px solid lightgray;
 }
-span{
-    margin:10px auto;
+
+span {
+    margin: 10px auto;
     font-weight: bold;
 }
 
@@ -56,21 +54,21 @@ span{
     background-color: #882d03;
     background-image: linear-gradient(90deg, rgba(211, 112, 0, 0.07) 50%, transparent 50%),
         linear-gradient(90deg, rgba(211, 112, 0, .13) 50%, transparent 50%),
-           linear-gradient(90deg, transparent 50%, rgba(211, 112, 0, .17) 50%),
+        linear-gradient(90deg, transparent 50%, rgba(211, 112, 0, .17) 50%),
         linear-gradient(90deg, transparent 50%, rgba(211, 112, 0, .19) 50%);
     background-size: 13px, 29px, 37px, 53px;
 }
 
-.Black{
-       background-color: white;
+.Black {
+    background-color: green;
 }
 
-.White{
+.White {
     background-color: white;
 }
 
 .White:hover {
-    background-color : rgba(255, 255, 255, 0.955);
+    background-color: rgba(255, 255, 255, 0.955);
   }
   
   .Black:hover {
@@ -84,7 +82,7 @@ span{
 .modal-container {
     width: 100vw;
     height: 100vw;
-    position:   fixed;
+    position: fixed;
     top: 0px;
     display: none;
     z-index: 999;
@@ -175,6 +173,30 @@ span{
     text-align: right;
 }
 
+@keyframes modal {
+    from {
+        opacity: 0;
+        transform: translate3d(0, -60px, 0);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@media (max-width: 600px) {
+    .modal {
+        padding: 10px;
+        width: 70%;
+        height: 45%;
+    }
+
+    span,
+    .modal-btns button {
+        font-size: 16;
+    }
+}
 
 
 

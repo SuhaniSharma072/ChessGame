@@ -118,5 +118,36 @@ function movePiece(selectedPiece,targetPiece){
 
 function pawnMove(thisBoard,fRow,fCol,tRow,tCol,player,enPassant,testCheck){
     const direction =player==="White"? -1:1;
-    if((fRow+direction*2===tRow))
-}
+    if((fRow+direction*2===tRow) &&(fCol===tCol)
+    && (fRow===1 || fRow===6) ){
+        if (!thisBoard[tRow][tCol].color && !thisBoard[tRow-direction][tCol].color)
+        if(testCheck) return !isCheck(thisBoard,fRow,fCol,tRow,tCol,false); else return true;
+    }
+    else if ((fRow + direction === tRow) && (fCol===tCol)
+    && !thisBoard[tRow][fCol].v=color){
+        if (testCheck) return !isCheck(thisBoard,fRow,fCol,tRow,tCol,false);
+    }
+    else if((fRow+direction===tRow) &&
+    (fCol +1===tCol || fCol -1 ===tCol) && thisBoard[tRow][tCol].color !==""
+    && thisBoard[tRow][tCol].color !== player){
+        if (testCheck) return !isCheck(thisBoard,fRow,fCol,tRow,tCol,false); else return true;
+    }
+    else if (((fRow=== 3 && player=== "White") || (fRow === 4 && player === "Black")) && (fCol +1 === tCol || fCol-1===tCol)
+    && thisBoard[fRow][tCol].type==="pawn" && thisBoard[fRow][tCol].color !==player
+    && (fRow+ direction === tRow) && (history[history.length-2][tRow+direction][tCol].type=="pawn")
+    && (history[history.length-1][tRow+direction][tCol].type=="")){
+        if (enPassant) {thisBoard[fRow][tCol] = new Piece(""," ","");
+         if (testCheck) return !isCheck(thisBoard,fRow,fCol,tRow,tCol,false); else return true;
+        }
+        return false;
+    }
+
+    function knightMove(thisBoard,fRow,fCol,tRow,tCol, testCheck){
+        if(Math.abs(fRow-tRow) ===2 && Math.abs(fCol-tCol)===1) ||
+        (Math.abs(fRow-tRow) ===1 && Math.abs(fCol-tCol)===2)
+        if(testCheck) return !isCheck(thisBoard,fRow,fCol,tRow,tCol,false);  else return true;
+        return false;
+    }
+    function bishopMove(thisBoard,fRow,fCol,tRow,tCol,testCheck){
+         if(Math.abs(fRow-tRow)!==
+    }
